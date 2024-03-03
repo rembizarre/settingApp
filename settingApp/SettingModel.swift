@@ -27,7 +27,7 @@ struct ProfileOption {
 struct SettingOption {
     let title: String
     let icon: UIImage?
-    let iconBackground: UIColor
+    let iconBackgroundColor: UIColor
     let handler: (() -> Void)
 }
 

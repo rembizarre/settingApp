@@ -64,25 +64,17 @@
 		8A59AF192B945A4A00234CD6 /* settingApp */ = {
 			isa = PBXGroup;
 			children = (
-				8A59AF2E2B9466CA00234CD6 /* supporting */,
 				8A59AF1A2B945A4A00234CD6 /* AppDelegate.swift */,
 				8A59AF1C2B945A4A00234CD6 /* SceneDelegate.swift */,
 				8A59AF1E2B945A4A00234CD6 /* ViewController.swift */,
 				8A59AF232B945A4C00234CD6 /* Assets.xcassets */,
 				8A59AF282B945A4C00234CD6 /* Info.plist */,
-			);
-			path = settingApp;
-			sourceTree = "<group>";
-		};
-		8A59AF2E2B9466CA00234CD6 /* supporting */ = {
-			isa = PBXGroup;
-			children = (
 				8A59AF362B94679600234CD6 /* ProfileTableViewCell.swift */,
 				8A59AF642B94C4EC00234CD6 /* SettingModel.swift */,
 				8A59AF662B94C79C00234CD6 /* SettingTableViewCell.swift */,
 				8A59AF682B94CD3000234CD6 /* SwitchTableViewCell.swift */,
 			);
-			path = supporting;
+			path = settingApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

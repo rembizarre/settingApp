@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class SettingTableViewCell: UITableViewCell {
     static let identifier = "SettingTableViewCell"
@@ -53,8 +54,9 @@ class SettingTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(6)
             make.left.equalToSuperview().offset(20)
             make.width.equalTo(iconContainer.snp.height)
-            make.center.equalToSuperview().offset(-6)
+            make.bottom.equalToSuperview().offset(-6)
         }
+
 
         iconImage.snp.makeConstraints { make in
             make.width.height.equalTo(iconContainer.snp.width).dividedBy(1.5)
@@ -78,6 +80,6 @@ class SettingTableViewCell: UITableViewCell {
     public func configure(with model: SettingOption) {
         label.text = model.title
         iconImage.image = model.icon
-        iconContainer.backgroundColor = model.iconBackground
+        iconContainer.backgroundColor = model.iconBackgroundColor
     }
 }

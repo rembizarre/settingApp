@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class SwitchTableViewCell: UITableViewCell {
     static let identifier = "SwitchTableViewCell"
@@ -49,9 +50,9 @@ class SwitchTableViewCell: UITableViewCell {
     private func setupHierarchy() {
         contentView.addSubview(label)
         contentView.addSubview(iconContainer)
+        contentView.addSubview(mySwitch)
         iconContainer.addSubview(iconImage)
         contentView.clipsToBounds = true
-        accessoryType = .disclosureIndicator
     }
 
     private func setupLayout() {
@@ -59,7 +60,7 @@ class SwitchTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(6)
             make.left.equalToSuperview().offset(20)
             make.width.equalTo(iconContainer.snp.height)
-            make.center.equalToSuperview().offset(-6)
+            make.bottom.equalToSuperview().offset(-6)
         }
 
         iconImage.snp.makeConstraints { make in
@@ -74,7 +75,7 @@ class SwitchTableViewCell: UITableViewCell {
         }
 
         mySwitch.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(-15)
+            make.right.equalToSuperview().offset(-20)
             make.centerY.equalToSuperview()
         }
     }

@@ -9,8 +9,9 @@ import UIKit
 import SnapKit
 
 class ProfileTableViewCell: UITableViewCell {
-
-    private lazy var profileImageView: UIImageView = {
+    static let identifier = "ProfileTableViewCell"
+    
+     lazy var profileImageView: UIImageView = {
         let profileImageView = UIImageView()
         profileImageView.contentMode = .scaleAspectFit
         profileImageView.clipsToBounds = true
@@ -18,17 +19,17 @@ class ProfileTableViewCell: UITableViewCell {
         return profileImageView
     }()
     
-    private lazy var nameLabel: UILabel = {
+     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 30, weight: .regular)
         return label
     }()
 
-    private lazy var subNameLabel: UILabel = {
+     lazy var subNameLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         return label
     }()
 
@@ -69,8 +70,10 @@ class ProfileTableViewCell: UITableViewCell {
 
         stack.snp.makeConstraints { make in
             make.centerY.equalTo(profileImageView.snp.centerY)
-            make.left.equalTo(profileImageView.snp.right).offset(20)
+            make.left.equalTo(profileImageView.snp.right).offset(15)
             make.right.equalToSuperview().inset(10)
         }
     }
+
+    
 }
