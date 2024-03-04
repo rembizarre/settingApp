@@ -11,6 +11,7 @@ import SnapKit
 class SwitchTableViewCell: UITableViewCell {
     static let identifier = "SwitchTableViewCell"
 
+    // MARK: - Outlets
     private let iconContainer: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -38,6 +39,7 @@ class SwitchTableViewCell: UITableViewCell {
         return mySwitch
     }()
 
+    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupHierarchy()
@@ -47,6 +49,7 @@ class SwitchTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Setup
     private func setupHierarchy() {
         contentView.addSubview(label)
         contentView.addSubview(iconContainer)
@@ -80,18 +83,18 @@ class SwitchTableViewCell: UITableViewCell {
         }
     }
 
+    public func configure(with model: SwitchSettingOption) {
+        label.text = model.title
+        iconImage.image = model.icon
+        iconContainer.backgroundColor = model.iconBackground
+        mySwitch.isOn = model.isOn
+    }
+    // MARK: - Reuse
     override func prepareForReuse() {
         super.prepareForReuse()
         iconImage.image = nil
         label.text = nil
         iconContainer.backgroundColor = nil
         mySwitch.isOn = false
-    }
-
-    public func configure(with model: SwitchSettingOption) {
-        label.text = model.title
-        iconImage.image = model.icon
-        iconContainer.backgroundColor = model.iconBackground
-        mySwitch.isOn = model.isOn
     }
 }

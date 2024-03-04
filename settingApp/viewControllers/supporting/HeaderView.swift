@@ -10,7 +10,7 @@ import UIKit
 final class TableHeader: UITableViewHeaderFooterView {
     static let identifier = "TableHeader"
 
-    // MARK: - UI
+    // MARK: - Outlets
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "profile")
@@ -36,6 +36,7 @@ final class TableHeader: UITableViewHeaderFooterView {
         return label
     }()
 
+    // MARK: - Initializers
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupHierarchy()
@@ -53,6 +54,7 @@ final class TableHeader: UITableViewHeaderFooterView {
         contentView.backgroundColor = .systemBackground
     }
 
+    // MARK: - Setup
     private func setupLayout() {
         imageView.snp.makeConstraints { make in
             make.centerX.equalTo(contentView)

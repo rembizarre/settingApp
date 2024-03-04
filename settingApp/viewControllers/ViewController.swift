@@ -10,9 +10,9 @@ import SnapKit
 
 class ViewController: UIViewController {
 
+    // MARK: - Outlets
     private let searchController: UISearchController = {
         let searchController = UISearchController()
-        searchController.searchBar.placeholder = "Поиск"
         return searchController
     }()
 
@@ -25,21 +25,25 @@ class ViewController: UIViewController {
     }()
 
     var models = [Section]()
+    //to store unfiltered data
+    var originalModels = [Section]()
 
+
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableView.automaticDimension
         configure()
         title = "Настройки"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.searchController = searchController
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Отменить"
+        setupSearchController()
         setupHierarchy()
         setupLayout()
         tableView.dataSource = self
         tableView.delegate = self
     }
 
+
+    // MARK: - Setup
     private func configure() {
         models.insert(Section(title: "", option: [.profileCell(model: ProfileOption(imageName: "profile", name: "John Doe", subName: "Apple ID, iCloud+, контент и покупки", handler: {
             [weak self] in
@@ -48,12 +52,12 @@ class ViewController: UIViewController {
         }))]), at: 0)
 
         models.append(Section(title: "", option: [
-            .switchCell(model: SwitchSettingOption(title: "Авиарежим", icon: UIImage(systemName: "airplane"), iconBackground: .systemOrange, handler: { }, isOn: false)),
+            .switchCell(model: SwitchSettingOption(title: "Авиарежим", icon: UIImage(systemName: "airplane"), iconBackground: .systemOrange, handler: { print("Airplane mode is ON")}, isOn: false)),
             .staticCell(model: SettingOption(title: "Wi-Fi", icon: UIImage(systemName: "wifi"), iconBackgroundColor: .systemBlue, handler: { print("Wi-fi tapped")})),
             .staticCell(model: SettingOption(title: "Bluetooth", icon: UIImage(named: "bluetooth"), iconBackgroundColor: .systemBlue, handler: { print("Bluetooth tapped")})),
             .staticCell(model: SettingOption(title: "Сотовая связь", icon: UIImage(systemName: "antenna.radiowaves.left.and.right"), iconBackgroundColor: .systemGreen, handler: { print("Cellular tapped")})),
             .staticCell(model: SettingOption(title: "Режим модема", icon: UIImage(systemName: "personalhotspot"), iconBackgroundColor: .systemGreen, handler: { print("HotSpot tapped")})),
-            .switchCell(model: SwitchSettingOption(title: "VPN", icon: UIImage(systemName: "network.badge.shield.half.filled"), iconBackground: .systemBlue, handler: { print("VPN tapped")}, isOn: false)),
+            .switchCell(model: SwitchSettingOption(title: "VPN", icon: UIImage(systemName: "network.badge.shield.half.filled"), iconBackground: .systemBlue, handler: { print("VPN is on")}, isOn: false)),
         ]))
 
         models.append(Section(title: "", option: [
@@ -75,7 +79,8 @@ class ViewController: UIViewController {
             .staticCell(model: SettingOption(title: "Универсальный доступ", icon: UIImage(systemName: "accessibility"), iconBackgroundColor: .systemBlue) { print("Accessibility tapped") }),
             .staticCell(model: SettingOption(title: "Обои", icon: UIImage(systemName: "atom"), iconBackgroundColor: .systemCyan) { print("Wallpaper tapped")}),
             ]))
-
+        originalModels = models
+        tableView.reloadData()
     }
     
     private func setupHierarchy() {
@@ -87,9 +92,18 @@ class ViewController: UIViewController {
             make.top.right.bottom.left.equalTo(view)
         }
     }
+
+    private func setupSearchController() {
+        searchController.searchBar.placeholder = "Поиск"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.searchController = searchController
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Отменить"
+        searchController.searchResultsUpdater = self
+        definesPresentationContext = true
+    }
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 && indexPath.row == 0 {
             return 80
@@ -129,6 +143,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
         }
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let type = models[indexPath.section].option[indexPath.row]
@@ -140,5 +155,29 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             case .profileCell(let model):
                 model.handler()
         }
+    }
+    // search functionality
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
+            models = originalModels
+            tableView.reloadData()
+            return
+        }
+
+        // filter models based on search text
+        models = originalModels.map { section in
+            let filteredOptions = section.option.filter { option in
+                switch option {
+                    case .profileCell(let model):
+                        return model.name.lowercased().contains(searchText.lowercased())
+                    case .staticCell(let model):
+                        return model.title.lowercased().contains(searchText.lowercased())
+                    case .switchCell(let model):
+                        return model.title.lowercased().contains(searchText.lowercased())
+                }
+            }
+            return Section(title: section.title, option: filteredOptions)
+        }.filter { !$0.option.isEmpty }
+        tableView.reloadData()
     }
 }

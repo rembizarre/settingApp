@@ -11,6 +11,7 @@ import SnapKit
 class SettingTableViewCell: UITableViewCell {
     static let identifier = "SettingTableViewCell"
 
+    // MARK: - Outlets
     private let iconContainer: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -32,6 +33,7 @@ class SettingTableViewCell: UITableViewCell {
         return label
     }()
 
+    // MARK: - Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupHierarchy()
@@ -41,6 +43,7 @@ class SettingTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Setup
     private func setupHierarchy() {
         contentView.addSubview(label)
         contentView.addSubview(iconContainer)
@@ -71,16 +74,17 @@ class SettingTableViewCell: UITableViewCell {
         }
     }
 
+    public func configure(with model: SettingOption) {
+        label.text = model.title
+        iconImage.image = model.icon
+        iconContainer.backgroundColor = model.iconBackgroundColor
+    }
+
+    // MARK: - Reuse
     override func prepareForReuse() {
         super.prepareForReuse()
         iconImage.image = nil
         label.text = nil
         iconContainer.backgroundColor = nil
-    }
-
-    public func configure(with model: SettingOption) {
-        label.text = model.title
-        iconImage.image = model.icon
-        iconContainer.backgroundColor = model.iconBackgroundColor
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    // MARK: - UI
+    // MARK: - Outlets
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
@@ -31,6 +31,7 @@ class ProfileViewController: UIViewController {
         tableView.delegate = self
     }
 
+    // MARK: - Setup
     private func configureNavigationBar() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -67,6 +68,7 @@ class ProfileViewController: UIViewController {
         }
     }
 }
+
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         models.count

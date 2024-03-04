@@ -9,8 +9,10 @@ import UIKit
 import SnapKit
 
 class ProfileTableViewCell: UITableViewCell {
+
+    // MARK: - Outlets
     static let identifier = "ProfileTableViewCell"
-    
+
      lazy var profileImageView: UIImageView = {
         let profileImageView = UIImageView()
         profileImageView.contentMode = .scaleAspectFit
@@ -42,6 +44,8 @@ class ProfileTableViewCell: UITableViewCell {
         return stack
     }()
 
+
+    // MARK: - Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupHierarchy()
@@ -52,7 +56,8 @@ class ProfileTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    // MARK: - Setup
     private func setupHierarchy() {
         contentView.addSubview(profileImageView)
         contentView.addSubview(stack)
@@ -73,7 +78,5 @@ class ProfileTableViewCell: UITableViewCell {
             make.left.equalTo(profileImageView.snp.right).offset(15)
             make.right.equalToSuperview().inset(10)
         }
-    }
-
-    
+    }   
 }
