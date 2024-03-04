@@ -10,6 +10,12 @@ import SnapKit
 
 class ViewController: UIViewController {
 
+    private let searchController: UISearchController = {
+        let searchController = UISearchController()
+        searchController.searchBar.placeholder = "Поиск"
+        return searchController
+    }()
+
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
@@ -26,6 +32,8 @@ class ViewController: UIViewController {
         configure()
         title = "Настройки"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.searchController = searchController
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Отменить"
         setupHierarchy()
         setupLayout()
         tableView.dataSource = self
