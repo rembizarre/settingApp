@@ -18,6 +18,7 @@
 		8A59AF672B94C79C00234CD6 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF662B94C79C00234CD6 /* SettingTableViewCell.swift */; };
 		8A59AF692B94CD3000234CD6 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF682B94CD3000234CD6 /* SwitchTableViewCell.swift */; };
 		8A59AF732B95410A00234CD6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF722B95410A00234CD6 /* ProfileViewController.swift */; };
+		8A59AF772B9546CC00234CD6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A59AF762B9546CC00234CD6 /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		8A59AF662B94C79C00234CD6 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		8A59AF682B94CD3000234CD6 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		8A59AF722B95410A00234CD6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		8A59AF762B9546CC00234CD6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				8A59AF642B94C4EC00234CD6 /* SettingModel.swift */,
 				8A59AF662B94C79C00234CD6 /* SettingTableViewCell.swift */,
 				8A59AF682B94CD3000234CD6 /* SwitchTableViewCell.swift */,
+				8A59AF762B9546CC00234CD6 /* HeaderView.swift */,
 			);
 			path = supporting;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A59AF672B94C79C00234CD6 /* SettingTableViewCell.swift in Sources */,
+				8A59AF772B9546CC00234CD6 /* HeaderView.swift in Sources */,
 				8A59AF652B94C4EC00234CD6 /* SettingModel.swift in Sources */,
 				8A59AF692B94CD3000234CD6 /* SwitchTableViewCell.swift in Sources */,
 				8A59AF1F2B945A4A00234CD6 /* ViewController.swift in Sources */,

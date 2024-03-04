@@ -9,12 +9,12 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    // MARK: - Outlets
+    // MARK: - UI
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
-
+        table.register(TableHeader.self, forHeaderFooterViewReuseIdentifier: TableHeader.identifier)
         return table
     }()
 
@@ -100,5 +100,17 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 break
         }
     }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section == 0 else {
+            return nil
+        }
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeader.identifier) as? TableHeader
+        print("header is tapped")
+        return header
+    }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 0 ? 200 : 0
+    }
 }
