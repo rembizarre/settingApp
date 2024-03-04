@@ -111,7 +111,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         print("header is tapped")
         return header
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? 200 : 0
     }

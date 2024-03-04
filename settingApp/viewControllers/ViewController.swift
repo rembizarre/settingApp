@@ -78,11 +78,11 @@ class ViewController: UIViewController {
             .staticCell(model: SettingOption(title: "Экран \"Домой\" и библиотека приложений", icon: UIImage(systemName: "square.grid.4x3.fill"), iconBackgroundColor: .systemPurple) { print("AppGalery tapped")}),
             .staticCell(model: SettingOption(title: "Универсальный доступ", icon: UIImage(systemName: "accessibility"), iconBackgroundColor: .systemBlue) { print("Accessibility tapped") }),
             .staticCell(model: SettingOption(title: "Обои", icon: UIImage(systemName: "atom"), iconBackgroundColor: .systemCyan) { print("Wallpaper tapped")}),
-            ]))
+        ]))
         originalModels = models
         tableView.reloadData()
     }
-    
+
     private func setupHierarchy() {
         view.addSubview(tableView)
     }
@@ -117,7 +117,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchRe
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return models[section].option.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = models[indexPath.section].option[indexPath.row]
         switch model.self {
@@ -143,7 +143,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchRe
                 return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let type = models[indexPath.section].option[indexPath.row]
