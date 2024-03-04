@@ -22,7 +22,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableView.automaticDimension
         configure()
         title = "Настройки"
@@ -34,14 +33,18 @@ class ViewController: UIViewController {
     }
 
     private func configure() {
-        models.insert(Section(title: "", option: [.profileCell(model: ProfileOption(imageName: "profile", name: "John Doe", subName: "Apple ID, iCloud+, контент и покупки", handler: { print("Profile tapped")}))]), at: 0)
+        models.insert(Section(title: "", option: [.profileCell(model: ProfileOption(imageName: "profile", name: "John Doe", subName: "Apple ID, iCloud+, контент и покупки", handler: {
+            [weak self] in
+            let profileVC = ProfileViewController()
+            self?.navigationController?.pushViewController(profileVC, animated: true)
+        }))]), at: 0)
 
         models.append(Section(title: "", option: [
             .switchCell(model: SwitchSettingOption(title: "Авиарежим", icon: UIImage(systemName: "airplane"), iconBackground: .systemOrange, handler: { }, isOn: false)),
             .staticCell(model: SettingOption(title: "Wi-Fi", icon: UIImage(systemName: "wifi"), iconBackgroundColor: .systemBlue, handler: { print("Wi-fi tapped")})),
             .staticCell(model: SettingOption(title: "Bluetooth", icon: UIImage(named: "bluetooth"), iconBackgroundColor: .systemBlue, handler: { print("Bluetooth tapped")})),
             .staticCell(model: SettingOption(title: "Сотовая связь", icon: UIImage(systemName: "antenna.radiowaves.left.and.right"), iconBackgroundColor: .systemGreen, handler: { print("Cellular tapped")})),
-            .staticCell(model: SettingOption(title: "Режим модема", icon: UIImage(systemName: "personalhotspot"), iconBackgroundColor: .systemGreen, handler: { print("Cellular tapped")})),
+            .staticCell(model: SettingOption(title: "Режим модема", icon: UIImage(systemName: "personalhotspot"), iconBackgroundColor: .systemGreen, handler: { print("HotSpot tapped")})),
             .switchCell(model: SwitchSettingOption(title: "VPN", icon: UIImage(systemName: "network.badge.shield.half.filled"), iconBackground: .systemBlue, handler: { print("VPN tapped")}, isOn: false)),
         ]))
 
@@ -57,12 +60,12 @@ class ViewController: UIViewController {
         ]))
 
         models.append(Section(title: "", option:[
-            .staticCell(model: SettingOption(title: "Основные", icon: UIImage(systemName: "gear"), iconBackgroundColor: .systemGray2) { }),
-            .staticCell(model: SettingOption(title: "Пункт управления", icon: UIImage(systemName: "switch.2"), iconBackgroundColor: .systemGray2) { }),
-            .staticCell(model: SettingOption(title: "Экран и яркость", icon: UIImage(systemName: "sun.max"), iconBackgroundColor: .systemBlue) { }),
-            .staticCell(model: SettingOption(title: "Экран \"Домой\" и библиотека приложений", icon: UIImage(systemName: "square.grid.4x3.fill"), iconBackgroundColor: .systemPurple) { }),
-            .staticCell(model: SettingOption(title: "Универсальный доступ", icon: UIImage(systemName: "accessibility"), iconBackgroundColor: .systemBlue) { }),
-            .staticCell(model: SettingOption(title: "Обои", icon: UIImage(systemName: "atom"), iconBackgroundColor: .systemCyan) { }),
+            .staticCell(model: SettingOption(title: "Основные", icon: UIImage(systemName: "gear"), iconBackgroundColor: .systemGray) { print("general Time tapped")}),
+            .staticCell(model: SettingOption(title: "Пункт управления", icon: UIImage(systemName: "switch.2"), iconBackgroundColor: .systemGray) {print("control center tapped") }),
+            .staticCell(model: SettingOption(title: "Экран и яркость", icon: UIImage(systemName: "sun.max"), iconBackgroundColor: .systemBlue) { print("display tapped") }),
+            .staticCell(model: SettingOption(title: "Экран \"Домой\" и библиотека приложений", icon: UIImage(systemName: "square.grid.4x3.fill"), iconBackgroundColor: .systemPurple) { print("AppGalery tapped")}),
+            .staticCell(model: SettingOption(title: "Универсальный доступ", icon: UIImage(systemName: "accessibility"), iconBackgroundColor: .systemBlue) { print("Accessibility tapped") }),
+            .staticCell(model: SettingOption(title: "Обои", icon: UIImage(systemName: "atom"), iconBackgroundColor: .systemCyan) { print("Wallpaper tapped")}),
             ]))
 
     }

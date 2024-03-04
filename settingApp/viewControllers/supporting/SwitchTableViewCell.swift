@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class SettingTableViewCell: UITableViewCell {
-    static let identifier = "SettingTableViewCell"
+class SwitchTableViewCell: UITableViewCell {
+    static let identifier = "SwitchTableViewCell"
 
     private let iconContainer: UIView = {
         let view = UIView()
@@ -32,6 +32,12 @@ class SettingTableViewCell: UITableViewCell {
         return label
     }()
 
+    private let mySwitch: UISwitch = {
+        let mySwitch = UISwitch()
+        mySwitch.tintColor = .systemGreen
+        return mySwitch
+    }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupHierarchy()
@@ -45,8 +51,8 @@ class SettingTableViewCell: UITableViewCell {
         contentView.addSubview(label)
         contentView.addSubview(iconContainer)
         iconContainer.addSubview(iconImage)
+        contentView.addSubview(mySwitch)
         contentView.clipsToBounds = true
-        accessoryType = .disclosureIndicator
     }
 
     private func setupLayout() {
@@ -56,7 +62,6 @@ class SettingTableViewCell: UITableViewCell {
             make.width.equalTo(iconContainer.snp.height)
             make.bottom.equalToSuperview().offset(-6)
         }
-
 
         iconImage.snp.makeConstraints { make in
             make.width.height.equalTo(iconContainer.snp.width).dividedBy(1.5)
@@ -68,6 +73,11 @@ class SettingTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-15)
             make.top.bottom.equalToSuperview()
         }
+
+        mySwitch.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-20)
+            make.centerY.equalToSuperview()
+        }
     }
 
     override func prepareForReuse() {
@@ -75,11 +85,13 @@ class SettingTableViewCell: UITableViewCell {
         iconImage.image = nil
         label.text = nil
         iconContainer.backgroundColor = nil
+        mySwitch.isOn = false
     }
 
-    public func configure(with model: SettingOption) {
+    public func configure(with model: SwitchSettingOption) {
         label.text = model.title
         iconImage.image = model.icon
-        iconContainer.backgroundColor = model.iconBackgroundColor
+        iconContainer.backgroundColor = model.iconBackground
+        mySwitch.isOn = model.isOn
     }
 }
