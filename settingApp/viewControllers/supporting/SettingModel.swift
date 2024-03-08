@@ -8,7 +8,7 @@
 import UIKit
 
 struct Section {
-    let title: String
+//    let title: String
     let option: [SettingOptionType]
 }
 enum SettingOptionType {

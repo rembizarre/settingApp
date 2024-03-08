@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
         table.register(TableHeader.self, forHeaderFooterViewReuseIdentifier: TableHeader.identifier)
+        table.sectionHeaderHeight = 17
         return table
     }()
 
@@ -43,14 +44,14 @@ class ProfileViewController: UIViewController {
     }
 
     private func configure() {
-        models.append(Section(title: "", option: [
+        models.append(Section(option: [
             .staticCell(model: SettingOption(title: "Личная безопасность", icon: UIImage(systemName: "person.text.rectangle.fill"), iconBackgroundColor: .systemGray, handler: {})),
             .staticCell(model: SettingOption(title: "Вход и безопасность", icon: UIImage(systemName: "exclamationmark.shield.fill"), iconBackgroundColor: .systemGray, handler: {})),
             .staticCell(model: SettingOption(title: "Оплата и доставка", icon: UIImage(systemName: "creditcard.fill"), iconBackgroundColor: .systemGray, handler: {})),
             .staticCell(model: SettingOption(title: "Подписки", icon: UIImage(systemName: "goforward.plus"), iconBackgroundColor: .systemGray, handler: {})),
         ]))
 
-        models.append(Section(title: "", option: [
+        models.append(Section(option: [
             .staticCell(model: SettingOption(title: "iCloud", icon: UIImage(named: "icloud"), iconBackgroundColor: .systemBackground, handler: {})),
             .staticCell(model: SettingOption(title: "Контент и покупки", icon: UIImage(named: "appstore"), iconBackgroundColor: .systemBackground, handler: {})),
             .staticCell(model: SettingOption(title: "Локатор", icon: UIImage(named: "findmy"), iconBackgroundColor: .systemBackground, handler: {})),

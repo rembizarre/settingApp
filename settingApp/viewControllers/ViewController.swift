@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
         table.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.identifier)
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
+        table.sectionHeaderHeight = 17
         return table
     }()
 
@@ -45,13 +46,14 @@ class ViewController: UIViewController {
 
     // MARK: - Setup
     private func configure() {
-        models.insert(Section(title: "", option: [.profileCell(model: ProfileOption(imageName: "profile", name: "John Doe", subName: "Apple ID, iCloud+, контент и покупки", handler: {
+        models.insert(Section(option: [.profileCell(model: ProfileOption(imageName: "profile", name: "John Doe", subName: "Apple ID, iCloud+, контент и покупки", handler: {
             [weak self] in
             let profileVC = ProfileViewController()
             self?.navigationController?.pushViewController(profileVC, animated: true)
         }))]), at: 0)
 
-        models.append(Section(title: "", option: [
+
+        models.append(Section(option: [
             .switchCell(model: SwitchSettingOption(title: "Авиарежим", icon: UIImage(systemName: "airplane"), iconBackground: .systemOrange, handler: { print("Airplane mode is ON")}, isOn: false)),
             .staticCell(model: SettingOption(title: "Wi-Fi", icon: UIImage(systemName: "wifi"), iconBackgroundColor: .systemBlue, handler: { print("Wi-fi tapped")})),
             .staticCell(model: SettingOption(title: "Bluetooth", icon: UIImage(named: "bluetooth"), iconBackgroundColor: .systemBlue, handler: { print("Bluetooth tapped")})),
@@ -60,7 +62,7 @@ class ViewController: UIViewController {
             .switchCell(model: SwitchSettingOption(title: "VPN", icon: UIImage(systemName: "network.badge.shield.half.filled"), iconBackground: .systemBlue, handler: { print("VPN is on")}, isOn: false)),
         ]))
 
-        models.append(Section(title: "", option: [
+        models.append(Section(option: [
             .staticCell(model: SettingOption(title: "Уведомления", icon: UIImage(systemName: "bell.badge.fill"), iconBackgroundColor: .systemRed, handler: {
                 print("Notification tapped")})),
             .staticCell(model: SettingOption(title: "Звуки, тактильные сигналы", icon: UIImage(systemName: "speaker.wave.3.fill"), iconBackgroundColor: .systemRed, handler: {
@@ -71,7 +73,7 @@ class ViewController: UIViewController {
                 print("screen Time tapped")})),
         ]))
 
-        models.append(Section(title: "", option:[
+        models.append(Section(option:[
             .staticCell(model: SettingOption(title: "Основные", icon: UIImage(systemName: "gear"), iconBackgroundColor: .systemGray) { print("general Time tapped")}),
             .staticCell(model: SettingOption(title: "Пункт управления", icon: UIImage(systemName: "switch.2"), iconBackgroundColor: .systemGray) {print("control center tapped") }),
             .staticCell(model: SettingOption(title: "Экран и яркость", icon: UIImage(systemName: "sun.max"), iconBackgroundColor: .systemBlue) { print("display tapped") }),
@@ -176,7 +178,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchRe
                         return model.title.lowercased().contains(searchText.lowercased())
                 }
             }
-            return Section(title: section.title, option: filteredOptions)
+            return Section(option: filteredOptions)
         }.filter { !$0.option.isEmpty }
         tableView.reloadData()
     }
