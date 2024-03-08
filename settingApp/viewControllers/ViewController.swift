@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     // MARK: - Outlets
     private let searchController: UISearchController = {
         let searchController = UISearchController()
+
         return searchController
     }()
 
@@ -21,6 +22,7 @@ class ViewController: UIViewController {
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
         table.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.identifier)
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
+        table.register(SettingWithInfoTableViewCell.self, forCellReuseIdentifier: SettingWithInfoTableViewCell.identifier)
         table.sectionHeaderHeight = 17
         return table
     }()
@@ -55,8 +57,8 @@ class ViewController: UIViewController {
 
         models.append(Section(option: [
             .switchCell(model: SwitchSettingOption(title: "Авиарежим", icon: UIImage(systemName: "airplane"), iconBackground: .systemOrange, handler: { print("Airplane mode is ON")}, isOn: false)),
-            .staticCell(model: SettingOption(title: "Wi-Fi", icon: UIImage(systemName: "wifi"), iconBackgroundColor: .systemBlue, handler: { print("Wi-fi tapped")})),
-            .staticCell(model: SettingOption(title: "Bluetooth", icon: UIImage(named: "bluetooth"), iconBackgroundColor: .systemBlue, handler: { print("Bluetooth tapped")})),
+            .staticCellWithInfo(model: SettingWithInfoOption(title: "Wi-Fi", icon: UIImage(systemName: "wifi"), iconBackgroundColor: .systemBlue, label: "Rem", handler: { print("Wi-fi tapped")})),
+            .staticCellWithInfo(model: SettingWithInfoOption(title: "Bluetooth", icon: UIImage(named: "bluetooth"), iconBackgroundColor: .systemBlue, label: "Вкл.", handler: { print("Bluetooth tapped")})),
             .staticCell(model: SettingOption(title: "Сотовая связь", icon: UIImage(systemName: "antenna.radiowaves.left.and.right"), iconBackgroundColor: .systemGreen, handler: { print("Cellular tapped")})),
             .staticCell(model: SettingOption(title: "Режим модема", icon: UIImage(systemName: "personalhotspot"), iconBackgroundColor: .systemGreen, handler: { print("HotSpot tapped")})),
             .switchCell(model: SwitchSettingOption(title: "VPN", icon: UIImage(systemName: "network.badge.shield.half.filled"), iconBackground: .systemBlue, handler: { print("VPN is on")}, isOn: false)),
@@ -102,13 +104,15 @@ class ViewController: UIViewController {
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Отменить"
         searchController.searchResultsUpdater = self
         definesPresentationContext = true
+        searchController.searchBar.showsBookmarkButton = true
+        searchController.searchBar.setImage(UIImage(systemName: "mic.fill"), for: .bookmark, state: .normal)
     }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 && indexPath.row == 0 {
-            return 80
+            return 70
         } else {
             return 44
         }
@@ -143,6 +147,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchRe
                 cell.nameLabel.text = model.name
                 cell.subNameLabel.text = model.subName
                 return cell
+            case .staticCellWithInfo(let model):
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingWithInfoTableViewCell.identifier, for: indexPath) as? SettingWithInfoTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.configure(with: model)
+                return cell
         }
     }
 
@@ -155,6 +165,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchRe
             case .switchCell(let model):
                 model.handler()
             case .profileCell(let model):
+                model.handler()
+            case .staticCellWithInfo(model: let model):
                 model.handler()
         }
     }
@@ -175,6 +187,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchRe
                     case .staticCell(let model):
                         return model.title.lowercased().contains(searchText.lowercased())
                     case .switchCell(let model):
+                        return model.title.lowercased().contains(searchText.lowercased())
+                    case .staticCellWithInfo(let model):
                         return model.title.lowercased().contains(searchText.lowercased())
                 }
             }

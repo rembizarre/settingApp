@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    // MARK: - Outlets
+    // MARK: - UI
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)

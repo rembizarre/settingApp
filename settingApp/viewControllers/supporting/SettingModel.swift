@@ -14,6 +14,7 @@ struct Section {
 enum SettingOptionType {
     case profileCell(model:ProfileOption)
     case staticCell(model: SettingOption)
+    case staticCellWithInfo(model: SettingWithInfoOption)
     case switchCell(model: SwitchSettingOption)
 }
 
@@ -37,4 +38,12 @@ struct SwitchSettingOption {
     let iconBackground: UIColor
     let handler: (() -> Void)
     var isOn: Bool
+}
+
+struct SettingWithInfoOption {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColor: UIColor
+    let label: String
+    let handler: (() -> Void)
 }
