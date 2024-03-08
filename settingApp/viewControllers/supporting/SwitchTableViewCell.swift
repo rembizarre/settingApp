@@ -11,7 +11,7 @@ import SnapKit
 class SwitchTableViewCell: UITableViewCell {
     static let identifier = "SwitchTableViewCell"
     
-    // MARK: - Outlets
+    // MARK: - UI
     private let iconContainer: UIView = {
         let view = UIView()
         view.clipsToBounds = true

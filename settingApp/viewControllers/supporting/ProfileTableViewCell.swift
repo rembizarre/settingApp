@@ -10,7 +10,7 @@ import SnapKit
 
 class ProfileTableViewCell: UITableViewCell {
 
-    // MARK: - Outlets
+    // MARK: - UI
     static let identifier = "ProfileTableViewCell"
 
     lazy var profileImageView: UIImageView = {

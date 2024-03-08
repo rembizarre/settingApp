@@ -10,7 +10,7 @@ import UIKit
 final class TableHeader: UITableViewHeaderFooterView {
     static let identifier = "TableHeader"
     
-    // MARK: - Outlets
+    // MARK: - UI
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "profile")
