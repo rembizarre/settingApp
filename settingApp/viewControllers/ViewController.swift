@@ -111,10 +111,12 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 0 {
-            return 70
-        } else {
-            return 44
+        let model = models[indexPath.section].option[indexPath.row]
+        switch model {
+            case .profileCell(_):
+                return 70
+            default:
+                return 44
         }
     }
     func numberOfSections(in tableView: UITableView) -> Int {
