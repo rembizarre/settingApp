@@ -10,7 +10,7 @@ import UIKit
 final class TableHeader: UITableViewHeaderFooterView {
     static let identifier = "TableHeader"
     
-    // MARK: - Outlets
+    // MARK: - UI
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "profile")
@@ -35,14 +35,14 @@ final class TableHeader: UITableViewHeaderFooterView {
         label.font = UIFont.systemFont(ofSize: 15, weight: .light)
         return label
     }()
-    
+
     // MARK: - Initializers
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupHierarchy()
         setupLayout()
     }
-    
+   
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,7 +51,7 @@ final class TableHeader: UITableViewHeaderFooterView {
         contentView.addSubview(imageView)
         contentView.addSubview(label)
         contentView.addSubview(subLabel)
-        contentView.backgroundColor = .systemBackground
+        contentView.backgroundColor = .systemGray6
     }
     
     // MARK: - Setup
