@@ -18,12 +18,13 @@ class ViewController: UIViewController {
     }()
 
     private let tableView: UITableView = {
-        let table = UITableView(frame: .zero, style: .grouped)
+        let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
         table.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.identifier)
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         table.register(SettingWithInfoTableViewCell.self, forCellReuseIdentifier: SettingWithInfoTableViewCell.identifier)
         table.sectionHeaderHeight = 17
+        table.backgroundColor = .systemGray6
         return table
     }()
 
@@ -35,7 +36,6 @@ class ViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableView.automaticDimension
         configure()
         title = "Настройки"
         setupSearchController()
@@ -44,7 +44,11 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
-
+//to unclipp tableview from Navbar when returning back to main ViewController
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+    }
 
     // MARK: - Setup
     private func configure() {
@@ -53,8 +57,6 @@ class ViewController: UIViewController {
             let profileVC = ProfileViewController()
             self?.navigationController?.pushViewController(profileVC, animated: true)
         }))]), at: 0)
-
-
         models.append(Section(option: [
             .switchCell(model: SwitchSettingOption(title: "Авиарежим", icon: UIImage(systemName: "airplane"), iconBackground: .systemOrange, handler: { print("Airplane mode is ON")}, isOn: false)),
             .staticCellWithInfo(model: SettingWithInfoOption(title: "Wi-Fi", icon: UIImage(systemName: "wifi"), iconBackgroundColor: .systemBlue, label: "Rem", handler: { print("Wi-fi tapped")})),
@@ -63,7 +65,6 @@ class ViewController: UIViewController {
             .staticCell(model: SettingOption(title: "Режим модема", icon: UIImage(systemName: "personalhotspot"), iconBackgroundColor: .systemGreen, handler: { print("HotSpot tapped")})),
             .switchCell(model: SwitchSettingOption(title: "VPN", icon: UIImage(systemName: "network.badge.shield.half.filled"), iconBackground: .systemBlue, handler: { print("VPN is on")}, isOn: false)),
         ]))
-
         models.append(Section(option: [
             .staticCell(model: SettingOption(title: "Уведомления", icon: UIImage(systemName: "bell.badge.fill"), iconBackgroundColor: .systemRed, handler: {
                 print("Notification tapped")})),

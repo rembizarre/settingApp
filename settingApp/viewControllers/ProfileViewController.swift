@@ -11,13 +11,16 @@ class ProfileViewController: UIViewController {
 
     // MARK: - UI
     private let tableView: UITableView = {
-        let table = UITableView(frame: .zero, style: .grouped)
+        let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
-        table.register(TableHeader.self, forHeaderFooterViewReuseIdentifier: TableHeader.identifier)
         table.sectionHeaderHeight = 17
+        table.isScrollEnabled = false
         return table
     }()
+
+    private let scrollView = UIScrollView()
+    private let header = TableHeader()
 
     var models = [Section]()
 
@@ -35,7 +38,10 @@ class ProfileViewController: UIViewController {
     // MARK: - Setup
     private func configureNavigationBar() {
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
+//        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.systemGray6
+        appearance.shadowImage = UIImage() //removes line under NavBar
+        appearance.shadowColor = .clear // removes line under NavBar
         appearance.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 16, weight: .semibold)]
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
@@ -60,12 +66,25 @@ class ProfileViewController: UIViewController {
     }
 
     private func setupHierarchy() {
-        view.addSubview(tableView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(header)
+        scrollView.addSubview(tableView)
     }
 
     private func setupLayout() {
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        header.snp.makeConstraints { make in
+            make.top.equalTo(scrollView.snp.top)
+            make.left.right.equalTo(view)
+            make.height.equalTo(165)
+        }
+
         tableView.snp.makeConstraints { make in
-            make.top.right.bottom.left.equalTo(view)
+            make.top.equalTo(header.snp.bottom)
+            make.left.right.bottom.equalTo(view)
         }
     }
 }
@@ -102,18 +121,5 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             default:
                 break
         }
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard section == 0 else {
-            return nil
-        }
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableHeader.identifier) as? TableHeader
-        print("header is tapped")
-        return header
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 200 : 0
     }
 }

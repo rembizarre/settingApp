@@ -62,7 +62,7 @@ final class SettingWithInfoTableViewCell: UITableViewCell {
     private func setupLayout() {
         iconContainer.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(6)
-            make.left.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(13)
             make.width.equalTo(iconContainer.snp.height)
             make.bottom.equalToSuperview().offset(-6)
         }

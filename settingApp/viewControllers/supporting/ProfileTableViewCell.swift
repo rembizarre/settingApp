@@ -31,7 +31,7 @@ class ProfileTableViewCell: UITableViewCell {
     lazy var subNameLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
         return label
     }()
 
@@ -68,7 +68,7 @@ class ProfileTableViewCell: UITableViewCell {
 
     private func setupLayout() {
         profileImageView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(25)
+            make.left.equalToSuperview().offset(18)
             make.centerY.equalTo(contentView)
             make.width.height.equalTo(60)
         }
@@ -76,7 +76,7 @@ class ProfileTableViewCell: UITableViewCell {
         stack.snp.makeConstraints { make in
             make.centerY.equalTo(profileImageView.snp.centerY)
             make.left.equalTo(profileImageView.snp.right).offset(15)
-            make.right.equalToSuperview().inset(10)
+            make.right.equalToSuperview().inset(5)
         }
     }
 }
