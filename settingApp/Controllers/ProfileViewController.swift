@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let header = TableHeader()
 
-    var models = [Section]()
+    private let dataManager = SettingsDataManager()
 
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -50,18 +50,18 @@ class ProfileViewController: UIViewController {
     }
 
     private func configure() {
-        models.append(Section(option: [
-            .staticCell(model: SettingOption(title: "Личная безопасность", icon: UIImage(systemName: "person.text.rectangle.fill"), iconBackgroundColor: .systemGray, handler: {})),
-            .staticCell(model: SettingOption(title: "Вход и безопасность", icon: UIImage(systemName: "exclamationmark.shield.fill"), iconBackgroundColor: .systemGray, handler: {})),
-            .staticCell(model: SettingOption(title: "Оплата и доставка", icon: UIImage(systemName: "creditcard.fill"), iconBackgroundColor: .systemGray, handler: {})),
-            .staticCell(model: SettingOption(title: "Подписки", icon: UIImage(systemName: "goforward.plus"), iconBackgroundColor: .systemGray, handler: {})),
+        dataManager.models.append(Section(option: [
+            .staticCell(model: SettingOption(title: "Личная безопасность", icon: "person.text.rectangle.fill", iconBackgroundColor: "systemGray", handler: {})),
+            .staticCell(model: SettingOption(title: "Вход и безопасность", icon: "exclamationmark.shield.fill", iconBackgroundColor: "systemGray", handler: {})),
+            .staticCell(model: SettingOption(title: "Оплата и доставка", icon: "creditcard.fill", iconBackgroundColor: "systemGray", handler: {})),
+            .staticCell(model: SettingOption(title: "Подписки", icon: "goforward.plus", iconBackgroundColor: "systemGray", handler: {})),
         ]))
 
-        models.append(Section(option: [
-            .staticCell(model: SettingOption(title: "iCloud", icon: UIImage(named: "icloud"), iconBackgroundColor: .systemBackground, handler: {})),
-            .staticCell(model: SettingOption(title: "Контент и покупки", icon: UIImage(named: "appstore"), iconBackgroundColor: .systemBackground, handler: {})),
-            .staticCell(model: SettingOption(title: "Локатор", icon: UIImage(named: "findmy"), iconBackgroundColor: .systemBackground, handler: {})),
-            .staticCell(model: SettingOption(title: "Семейный доступ", icon: UIImage(named: "family"), iconBackgroundColor: .systemBackground, handler: {})),
+        dataManager.models.append(Section(option: [
+            .staticCell(model: SettingOption(title: "iCloud", icon: "icloud", iconBackgroundColor: "systemBackground", handler: {})),
+            .staticCell(model: SettingOption(title: "Контент и покупки", icon: "appstore", iconBackgroundColor: "systemBackground", handler: {})),
+            .staticCell(model: SettingOption(title: "Локатор", icon: "findmy", iconBackgroundColor: "systemBackground", handler: {})),
+            .staticCell(model: SettingOption(title: "Семейный доступ", icon: "family", iconBackgroundColor: "systemBackground", handler: {})),
         ]))
     }
 
@@ -91,15 +91,15 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        models.count
+        dataManager.models.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models[section].option.count
+        return dataManager.models[section].option.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = models[indexPath.section].option[indexPath.row]
+        let model = dataManager.models[indexPath.section].option[indexPath.row]
         switch model.self {
             case .staticCell(let model):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as? SettingTableViewCell else {
@@ -114,7 +114,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let type = models[indexPath.section].option[indexPath.row]
+        let type = dataManager.models[indexPath.section].option[indexPath.row]
         switch type.self {
             case .staticCell(let model):
                 model.handler()

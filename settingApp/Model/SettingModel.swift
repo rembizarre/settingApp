@@ -27,23 +27,24 @@ struct ProfileOption {
 
 struct SettingOption {
     let title: String
-    let icon: UIImage?
-    let iconBackgroundColor: UIColor
+    let icon: String?
+    let iconBackgroundColor: String
     let handler: (() -> Void)
 }
 
 struct SwitchSettingOption {
     let title: String
-    let icon: UIImage?
-    let iconBackground: UIColor
+    let icon: String?
+    let iconBackground: String
     let handler: (() -> Void)
     var isOn: Bool
 }
 
 struct SettingWithInfoOption {
     let title: String
-    let icon: UIImage?
-    let iconBackgroundColor: UIColor
+    let icon: String?
+    let iconBackgroundColor: String
     let label: String
     let handler: (() -> Void)
 }
+

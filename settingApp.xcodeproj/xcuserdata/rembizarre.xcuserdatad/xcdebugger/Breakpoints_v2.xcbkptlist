@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "81F5AF13-4483-4424-9D90-59971791467D"
+            uuid = "6E37997D-C01A-4092-936D-B6E94330D26B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "settingApp/viewControllers/ViewController.swift"
+            filePath = "settingApp/viewControllers/ProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "setupSearchController()"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "configureNavigationBar()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

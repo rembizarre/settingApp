@@ -50,7 +50,6 @@ class ProfileTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupHierarchy()
         setupLayout()
-
     }
 
     required init?(coder: NSCoder) {

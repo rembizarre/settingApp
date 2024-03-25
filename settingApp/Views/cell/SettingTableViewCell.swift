@@ -76,8 +76,8 @@ class SettingTableViewCell: UITableViewCell {
     
     public func configure(with model: SettingOption) {
         label.text = model.title
-        iconImage.image = model.icon
-        iconContainer.backgroundColor = model.iconBackgroundColor
+        iconImage.image = model.icon.flatMap { UIImage(systemName: $0)}
+        iconContainer.backgroundColor = UIColor.color(from: model.iconBackgroundColor)
     }
     
     // MARK: - Reuse
