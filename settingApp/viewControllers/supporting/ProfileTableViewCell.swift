@@ -10,7 +10,7 @@ import SnapKit
 
 class ProfileTableViewCell: UITableViewCell {
 
-    // MARK: - Outlets
+    // MARK: - UI
     static let identifier = "ProfileTableViewCell"
 
     lazy var profileImageView: UIImageView = {
@@ -24,14 +24,14 @@ class ProfileTableViewCell: UITableViewCell {
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont.systemFont(ofSize: 30, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
         return label
     }()
 
     lazy var subNameLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
         return label
     }()
 
@@ -66,9 +66,15 @@ class ProfileTableViewCell: UITableViewCell {
         accessoryType = .disclosureIndicator
     }
 
+    public func configure(with model: ProfileOption) {
+        profileImageView.image = UIImage(named: model.imageName)
+        nameLabel.text = model.name
+        subNameLabel.text = model.subName
+    }
+
     private func setupLayout() {
         profileImageView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(25)
+            make.left.equalToSuperview().offset(18)
             make.centerY.equalTo(contentView)
             make.width.height.equalTo(60)
         }
@@ -76,7 +82,7 @@ class ProfileTableViewCell: UITableViewCell {
         stack.snp.makeConstraints { make in
             make.centerY.equalTo(profileImageView.snp.centerY)
             make.left.equalTo(profileImageView.snp.right).offset(15)
-            make.right.equalToSuperview().inset(10)
+            make.right.equalToSuperview().inset(5)
         }
     }
 }
