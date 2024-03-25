@@ -38,7 +38,6 @@ class ProfileViewController: UIViewController {
     // MARK: - Setup
     private func configureNavigationBar() {
         let appearance = UINavigationBarAppearance()
-//        appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.systemGray6
         appearance.shadowImage = UIImage() //removes line under NavBar
         appearance.shadowColor = .clear // removes line under NavBar

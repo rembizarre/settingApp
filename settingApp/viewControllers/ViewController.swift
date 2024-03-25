@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         table.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.identifier)
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         table.register(SettingWithInfoTableViewCell.self, forCellReuseIdentifier: SettingWithInfoTableViewCell.identifier)
-        table.sectionHeaderHeight = 17
+//        table.sectionHeaderHeight = 17
         table.backgroundColor = .systemGray6
         return table
     }()
@@ -43,11 +43,6 @@ class ViewController: UIViewController {
         setupLayout()
         tableView.dataSource = self
         tableView.delegate = self
-    }
-//to unclipp tableview from Navbar when returning back to main ViewController
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
     }
 
     // MARK: - Setup
@@ -146,9 +141,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, UISearchRe
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileTableViewCell.identifier, for: indexPath) as? ProfileTableViewCell else {
                     return UITableViewCell()
                 }
-                cell.profileImageView.image = UIImage(named: model.imageName)
-                cell.nameLabel.text = model.name
-                cell.subNameLabel.text = model.subName
+                cell.configure(with: model)
                 return cell
             case .staticCellWithInfo(let model):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingWithInfoTableViewCell.identifier, for: indexPath) as? SettingWithInfoTableViewCell else {

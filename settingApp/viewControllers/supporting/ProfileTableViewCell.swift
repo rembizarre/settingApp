@@ -24,7 +24,7 @@ class ProfileTableViewCell: UITableViewCell {
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont.systemFont(ofSize: 30, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 25, weight: .regular)
         return label
     }()
 
@@ -64,6 +64,12 @@ class ProfileTableViewCell: UITableViewCell {
         stack.addArrangedSubview(nameLabel)
         stack.addArrangedSubview(subNameLabel)
         accessoryType = .disclosureIndicator
+    }
+
+    public func configure(with model: ProfileOption) {
+        profileImageView.image = UIImage(named: model.imageName)
+        nameLabel.text = model.name
+        subNameLabel.text = model.subName
     }
 
     private func setupLayout() {
