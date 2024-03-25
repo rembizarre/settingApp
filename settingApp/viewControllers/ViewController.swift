@@ -8,22 +8,19 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
-    // MARK: - Outlets
-    private let searchController: UISearchController = {
-        let searchController = UISearchController()
+    // MARK: - UI
+    private let searchController = UISearchController()
 
-        return searchController
-    }()
-
-    private let tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
         table.register(SwitchTableViewCell.self, forCellReuseIdentifier: SwitchTableViewCell.identifier)
         table.register(ProfileTableViewCell.self, forCellReuseIdentifier: ProfileTableViewCell.identifier)
         table.register(SettingWithInfoTableViewCell.self, forCellReuseIdentifier: SettingWithInfoTableViewCell.identifier)
-//        table.sectionHeaderHeight = 17
+        tableView.dataSource = self
+        tableView.delegate = self
         table.backgroundColor = .systemGray6
         return table
     }()
@@ -41,10 +38,7 @@ class ViewController: UIViewController {
         setupSearchController()
         setupHierarchy()
         setupLayout()
-        tableView.dataSource = self
-        tableView.delegate = self
     }
-
     // MARK: - Setup
     private func configure() {
         models.insert(Section(option: [.profileCell(model: ProfileOption(imageName: "profile", name: "John Doe", subName: "Apple ID, iCloud+, контент и покупки", handler: {
